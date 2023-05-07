@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useAuth } from "./auth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./auth.tsx";
 import "../styles/LoginPage.css";
 
-const LoginPage = () => {
-  const [authToken, setAuthToken] = useState("");
+const LoginPage: React.FC = () => {
+  const [authToken, setAuthToken] = useState<string>("");
   const auth = useAuth();
   const navigate = useNavigate();
 
@@ -12,6 +12,7 @@ const LoginPage = () => {
     auth.login(authToken);
     navigate("home");
   };
+  
   return (
     <div className="page-wrapper">
       <form className="login-form">
@@ -20,7 +21,7 @@ const LoginPage = () => {
           <input
             placeholder="UserName"
             type="text"
-            onChange={(e) => setAuthToken(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAuthToken(e.target.value)}
           />
         </label>
         <button onClick={handleLogin}>Log in</button>
@@ -28,4 +29,5 @@ const LoginPage = () => {
     </div>
   );
 };
+
 export default LoginPage;

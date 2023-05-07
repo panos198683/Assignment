@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatDate , formatEmail} from "../utils/helpers";
-import { useAuth } from "./auth";
+import { useAuth } from './auth.tsx';
 import "../styles/Home.css";
+
+type JokeType = {
+  id: number;
+  Title: string;
+  Author: string;
+  CreatedAt: string;
+  Views: number;
+}[];
 
 function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const auth = useAuth();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [jokes, setJokes] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [jokes, setJokes] = useState<JokeType[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 
   useEffect(() => {
     fetch(
@@ -26,7 +34,7 @@ function Home() {
     if (!user) {
       return navigate("/");
     }
-  }, []);
+  }, [user , navigate]);
 
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -38,7 +46,7 @@ function Home() {
     navigate("/");
   };
 
-  if (!jokes) {
+  if (jokes.length === 0 || undefined) {
     return <div>LOADING...</div>;
   }
 
@@ -110,7 +118,7 @@ function Home() {
         <select
           className="pagination-select"
           value={itemsPerPage}
-          onChange={(event) => setItemsPerPage(event.target.value)}
+          onChange={(event) => setItemsPerPage(parseInt(event.target.value))}
         >
           <option value="5">5 items per page</option>
           <option value="10">10 items per page</option>

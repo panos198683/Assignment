@@ -1,9 +1,9 @@
 
 import { Route, Routes } from 'react-router-dom';
-import Home from './components/Home'
-import LoginPage from './components/LoginPage';
-import JokeForm from './components/JokeForm'
-import { AuthProvider } from './components/auth';
+import Home from './components/Home.tsx'
+import LoginPage from './components/LoginPage.tsx';
+import JokeForm from './components/JokeForm.tsx'
+import { AuthProvider } from './components/auth.tsx';
 
 function App() {
   return (
