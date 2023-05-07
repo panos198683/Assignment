@@ -26,27 +26,31 @@ function Home() {
     if (!user) {
       return navigate("/");
     }
-    console.log(user.length);
   }, []);
+
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.body.classList.toggle("dark", darkMode);
   };
+
   const handleLogout = () => {
     auth.logout();
     navigate("/");
   };
+
   if (!jokes) {
     return <div>LOADING...</div>;
   }
+  
   return (
     <div className="home-container">
-      <div className="titleContainer">
         <h1 className="title">Jokes</h1>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
         <button className="DarkMode" onClick={handleToggleDarkMode}>
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
-      </div>
       <table className="table">
         <thead>
           <tr>
@@ -111,10 +115,7 @@ function Home() {
           <option value="5">5 items per page</option>
           <option value="10">10 items per page</option>
         </select>
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-        <button className="logout-btn" onClick={() => navigate("/jokes/new")}>
+        <button className="" onClick={() => navigate("/jokes/new")}>
           New Joke
         </button>
       </div>

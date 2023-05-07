@@ -109,13 +109,16 @@ table tr {
 }
 
 .logout-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
   background-color: #543894;
   border: none;
   margin-left: 10px;
-  border-radius: 4px;
+  border-radius: 20px;
   color: #ffffff;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 12px;
   padding: 10px 15px;
 }
 

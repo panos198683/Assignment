@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/JokeForm.css";
-import { formatDate } from "../utils/helpers";
+import { useAuth } from "./auth";
 
 const JokeForm = ({ isEditing }) => {
-  const [joke, setJoke] = useState({
-    Title: "",
-    Author: "",
-    CreatedAt: "",
-    Views: 0,
-  });
+  const [joke, setJoke] = useState([]);
   const { id } = useParams();
   const history = useNavigate();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (isEditing) {
-      async function fetchJoke() {
-        const response = await fetch(
-          `https://retoolapi.dev/zu9TVE/jokes/${id}`
-        );
-        const data = await response.json();
-        setJoke(data);
+    if (!user) {
+      return navigate("/");
+    }
+  }, []);
+
+  useEffect(() => {
+      if (isEditing) {
+          async function fetchJoke() {
+              const response = await fetch(
+                  `https://retoolapi.dev/zu9TVE/jokes/${id}`
+                  );
+                  const data = await response.json();
+                  setJoke(data);
+                  console.log(joke)
       }
       fetchJoke();
     }
@@ -31,14 +35,13 @@ const JokeForm = ({ isEditing }) => {
   };
 
   function formatDateForApi(dateString) {
-    console.log(dateString);
-    const parts = dateString.split("/");
-    const year = parts[2];
-    const month = parts[1];
-    const day = parts[0];
-    return `${year}/${month}/${day}`;
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -112,7 +115,7 @@ const JokeForm = ({ isEditing }) => {
       });
   }
 
-  if (!joke) {
+  if (isEditing && !joke) {
     return <div>Loading...</div>;
   }
 
@@ -124,16 +127,16 @@ const JokeForm = ({ isEditing }) => {
       <label htmlFor="author">Author:</label>
       <input type="text" id="author" name="Author" defaultValue={joke.Author} />
 
-      <label htmlFor="createdDate">Created Date:</label>
+      <label htmlFor="CreatedDate">Created Date:</label>
       <input
         type="date"
-        id="createdDate"
+        id="CreatedAt"
         name="CreatedAt"
-        defaultValue={formatDate(joke.CreatedAt)}
+        defaultValue={joke.CreatedAt}
       />
 
-      <label htmlFor="views">Views:</label>
-      <input type="number" id="views" name="Views" defaultValue={joke.Views} />
+      <label htmlFor="Views">Views:</label>
+      <input type="text" id="Views" name="Views" defaultValue={joke.Views} />
       <button type="submit">Submit</button>
       <div className="btnContainer">
         <button type="button" onClick={handleBack}>
