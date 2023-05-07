@@ -13,9 +13,7 @@ export const AuthProvider = ({ children }: Props) => {
 
   const login = (user: User) => {
     setUser(user);
-    console.log(user);
     const Token = generateMockToken(user);
-    console.log(Token);
     Cookies.set("user_token", Token);
   };
   const logout = () => {
