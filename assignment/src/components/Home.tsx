@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { formatDate , formatEmail} from "../utils/helpers";
-import { useAuth } from './auth.tsx';
+import { formatDate, formatEmail } from "../utils/helpers";
+import { useAuth } from "./auth.tsx";
 import "../styles/Home.css";
-
-type JokeType = {
-  id: number;
-  Title: string;
-  Author: string;
-  CreatedAt: string;
-  Views: number;
-}[];
+import { JokeType } from "../types";
 
 function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -34,7 +27,7 @@ function Home() {
     if (!user) {
       return navigate("/");
     }
-  }, [user , navigate]);
+  }, [user, navigate]);
 
   const handleToggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -52,13 +45,13 @@ function Home() {
 
   return (
     <div className="home-container">
-        <h1 className="title">Jokes</h1>
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-        <button className="DarkMode" onClick={handleToggleDarkMode}>
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </button>
+      <h1 className="title">Jokes</h1>
+      <button className="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
+      <button className="DarkMode" onClick={handleToggleDarkMode}>
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
       <table className="table">
         <thead>
           <tr>

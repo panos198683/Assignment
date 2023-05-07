@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/JokeForm.css";
+import { Joke, JokeFormProps } from "../types";
 import { useAuth } from "./auth.tsx";
-
-interface Joke {
-  Title: string;
-  Author: string;
-  CreatedAt: string;
-  Views: string;
-}
-
-interface JokeFormProps {
-  isEditing: boolean;
-}
 
 const JokeForm: React.FC<JokeFormProps> = ({ isEditing }) => {
   const [joke, setJoke] = useState<Joke | null>(null);
@@ -60,7 +50,7 @@ const JokeForm: React.FC<JokeFormProps> = ({ isEditing }) => {
       Title: formData.get("Title") as string,
       Author: formData.get("Author") as string,
       CreatedAt: formData.get("CreatedAt") as string,
-      Views: formData.get("Views") as string
+      Views: formData.get("Views") as string,
     };
     jokeData.CreatedAt = formatDateForApi(jokeData.CreatedAt);
 
@@ -140,7 +130,12 @@ const JokeForm: React.FC<JokeFormProps> = ({ isEditing }) => {
       <input type="text" id="title" name="Title" defaultValue={joke?.Title} />
 
       <label htmlFor="author">Author:</label>
-      <input type="text" id="author" name="Author" defaultValue={joke?.Author} />
+      <input
+        type="text"
+        id="author"
+        name="Author"
+        defaultValue={joke?.Author}
+      />
 
       <label htmlFor="CreatedDate">Created Date:</label>
       <input

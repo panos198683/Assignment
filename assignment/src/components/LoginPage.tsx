@@ -12,7 +12,7 @@ const LoginPage: React.FC = () => {
     auth.login(authToken);
     navigate("home");
   };
-  
+
   return (
     <div className="page-wrapper">
       <form className="login-form">
@@ -21,7 +21,9 @@ const LoginPage: React.FC = () => {
           <input
             placeholder="UserName"
             type="text"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAuthToken(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAuthToken(e.target.value)
+            }
           />
         </label>
         <button onClick={handleLogin}>Log in</button>

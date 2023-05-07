@@ -1,20 +1,12 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState } from "react";
 import Cookies from "js-cookie";
 import { generateMockToken } from "../utils/helpers";
+import { AuthContextType, Props, User } from "../types";
 
-type User = string | null;
 
-interface AuthContextType {
-  user: User;
-  login: (user: User) => void;
-  logout: () => void;
-}
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-interface Props {
-  children: ReactNode;
-}
 
 export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User>(null);
