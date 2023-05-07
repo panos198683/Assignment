@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { formatDate } from "../utils/helpers";
+import { formatDate , formatEmail} from "../utils/helpers";
 import { useAuth } from "./auth";
 import "../styles/Home.css";
 
@@ -41,7 +41,7 @@ function Home() {
   if (!jokes) {
     return <div>LOADING...</div>;
   }
-  
+
   return (
     <div className="home-container">
         <h1 className="title">Jokes</h1>
@@ -66,7 +66,7 @@ function Home() {
               <td>
                 <Link to={`/jokes/${joke.id}`}>{joke.Title}</Link>
               </td>
-              <td>{joke.Author}</td>
+              <td>{formatEmail(joke.Author)}</td>
               <td>{formatDate(joke.CreatedAt)}</td>
               <td
                 style={{

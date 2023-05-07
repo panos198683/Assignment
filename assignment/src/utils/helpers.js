@@ -30,3 +30,13 @@ export function generateMockToken(user) {
   }
   return token;
 }
+export function formatEmail(email){
+  const formatted_Email = email.replace(/(?<=.).(?=.*@)/g, '*');
+  return formatted_Email;;
+}
+
+export function hideEmail(email) {
+  const [username, domain] = email.split('@');
+  const maskedUsername = `${username.charAt(0)}${'*'.repeat(username.length - 2)}${username.charAt(username.length - 1)}`;
+  return `${maskedUsername}@${domain}`;
+}
